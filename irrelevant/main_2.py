@@ -35,3 +35,19 @@ def main():
 
 # if __name__ == "__main__":
 #     main()
+
+
+# list_: dict = {
+    # 'exit': {'func': func_exit},
+    # 'help': {'func': assistance, 'params': []},
+    # '1': select_1 ,
+    # '2': {'func': my_select.select_2, 'params': []},
+    # '3': {'func': my_select.select_3, 'params': ['discipline_value']},
+    # '4': {'func': my_select.select_4, 'params': ['pr_id']},
+    # '5': {'func': my_select.select_5},
+    # '6': {'func': my_select.select_6, 'params': ['group_title']},
+    # '7': {'func': my_select.select_7, 'params': ['group_title', 'discipline_name']},
+    # '8': {'func': my_select.select_8, 'params': ['pr_id']},
+    # '9': {'func': my_select.select_9, 'params': ['st_id']},
+    # '10': {'func': my_select.select_10, 'params': ['st_id', 'pr_id']}
+# }

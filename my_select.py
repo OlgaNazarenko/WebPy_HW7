@@ -3,9 +3,11 @@ from sqlalchemy import desc, func, desc
 from database.connect import session
 from database.models import Group, Professor, Students, Marks, Disciplines
 
+
 #найти 5 студентов с наибольшим средним баллом по всем предметам.
 def select_1() -> list:
-    return (
+    print("Студенти з найвищим середнім балом: ")
+    result = (
         session.query(Students.first_name, Students.last_name, func.round(func.avg(Marks.mark), 2).label('avg_grade'))\
         .select_from(Marks)
         .join(Students)
@@ -14,7 +16,7 @@ def select_1() -> list:
         .limit(5)
         .all()
     )
-
+    return result
 
 # Найти студента с наивысшим средним баллом по определенному предмету.
 def select_2() -> list:
@@ -22,7 +24,6 @@ def select_2() -> list:
         session.query(Disciplines.discipline, Students.last_name, func.round(func.avg(Marks.mark), 2).label("avg_mark"))
         .select_from(Marks)
         .join(Students, Disciplines)
-        # .join(disc_alias)
         .group_by(Students.last_name, Disciplines.id, Disciplines)
         .order_by(Disciplines.discipline, desc("avg_mark"))
         .limit(1)
@@ -55,12 +56,12 @@ def select_4() -> list:
 
 #Найти какие курсы читает определенный преподаватель.
 def select_5() -> list:
-    pr_name: str = input("Write the last name of a teacher:  ")
+    pr_id: str = input("Write the professor's ID:  ")
     return(
         session.query(Disciplines.discipline, Professor.last_name)
         .select_from(Disciplines)
         .join(Professor)
-        .filter(Professor.last_name == pr_name)
+        .filter(Professor.id == pr_id)
         .all()
     )
 
@@ -74,7 +75,6 @@ def select_6() -> list:
         .select_from(Students)
         .join(Group)
         .distinct()
-        # .where(Students.group_id == 1)
         .filter(Group.title == group_title)
         .all()
     )
@@ -92,7 +92,6 @@ def select_7() -> list:
         .join(Group)
         .join(Disciplines)
         .distinct()
-        # .where(Students.group_id == 2, Disciplines.discipline == "Java")
         .filter(Group.title == group_title, Disciplines.discipline == discipline_name)
         .order_by(desc(Marks.mark), Students.last_name)
         .all()
@@ -101,13 +100,13 @@ def select_7() -> list:
 
 #Найти средний балл, который ставит определенный преподаватель по своим предметам.
 def select_8() -> list:
-    pr_name: str = input("Write the last name of a teacher:  ")
+    pr_id: str = input("Write the professor's ID:  ")
 
     return(
         session.query(Professor.last_name, func.round(func.avg(Marks.mark), 2).label("avg_mark"))
         .select_from(Professor)
         .join(Marks)
-        .filter(Professor.last_name == pr_name)
+        .filter(Professor.id == pr_id)
         .order_by(Professor.last_name, desc("avg_mark"))
         .all()
     )
@@ -115,23 +114,24 @@ def select_8() -> list:
 
 #Найти список курсов, которые посещает определенный студент.
 def select_9() -> list:
-    st_name: str = input("Write the last name of a student:  ")
+    st_id: str = input("Write the student's ID:  ")
 
     return(
-        session.query((Students.id).distinct(), Students.last_name, Disciplines.discipline)
+        session.query(Students.last_name, Disciplines.discipline)
         .select_from(Marks)
-        .join(Disciplines)
-        .join(Students)
-        # .where(Students.id == 2)
-        .filter(Students.last_name == st_name)
+        .join(Disciplines, Students)
+        .filter(Marks.students_id == st_id)
+        .group_by(Students.last_name)
+        .order_by(Disciplines.discipline)
+        .distinct()
         .all()
     )
 
 
 #Список курсов, которые определенному студенту читает определенный преподаватель.
 def select_10() -> list:
-    st_name: str = input("Write the last name of a student:  ")
-    pr_name: str = input("Write the last name of a teacher:  ")
+    st_id: str = input("Write the student's ID:  ")
+    pr_id: str = input("Write the teacher's ID:  ")
 
     return(
         session.query(Students.last_name, Professor.last_name, Disciplines.discipline)
@@ -140,8 +140,7 @@ def select_10() -> list:
         .join(Disciplines)
         .join(Professor)
         .distinct()
-        # .filter(Students.last_name == "Watson", Professor.id == 5)
-        .filter(Students.last_name == st_name, Professor.last_name == pr_name)
+        .filter(Students.id == st_id, Professor.id == pr_id)
         .order_by(Professor.last_name, Disciplines.discipline)
         .all()
     )
