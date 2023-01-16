@@ -1,6 +1,7 @@
+import run_seed
+
 from my_select import select_1, select_2, select_3, select_4, select_5, select_6, \
     select_7, select_8, select_9, select_10
-import run_seed
 
 
 def assistance():

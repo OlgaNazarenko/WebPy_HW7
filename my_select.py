@@ -18,8 +18,9 @@ def select_1() -> list:
     )
     return result
 
-# Найти студента с наивысшим средним баллом по определенному предмету.
+
 def select_2() -> list:
+    print("Студенти з найвищим середнім балом з певного предмету:")
     return(
         session.query(Disciplines.discipline, Students.last_name, func.round(func.avg(Marks.mark), 2).label("avg_mark"))
         .select_from(Marks)
@@ -31,8 +32,8 @@ def select_2() -> list:
     )
 
 
- #Найти средний балл в группах по определенному предмету.
 def select_3() -> list:
+    print("Середній бал у групах з певнjого предмету: ")
     discipline_value: str = input("Choose the discipline (Python, Java, Korean, Japanese, QA):  ")
     return(
         session.query(Disciplines.discipline, Group.title, func.round(func.avg(Marks.mark), 2).label("avg_mark"))
@@ -44,8 +45,8 @@ def select_3() -> list:
     )
 
 
-#Найти средний балл на потоке (по всей таблице оценок).
 def select_4() -> list:
+    print("Середній бал на потоці (по всіх): ")
     return(
         session.query(func.round(func.avg(Marks.mark), 2).label("avg_mark"))
         .select_from(Marks)
@@ -54,8 +55,8 @@ def select_4() -> list:
     )
 
 
-#Найти какие курсы читает определенный преподаватель.
 def select_5() -> list:
+    print("Курси певного викладача: ")
     pr_id: str = input("Write the professor's ID:  ")
     return(
         session.query(Disciplines.discipline, Professor.last_name)
@@ -66,8 +67,8 @@ def select_5() -> list:
     )
 
 
-#Найти список студентов в определенной группе.
 def select_6() -> list:
+    print("Список студентів певної групи: ")
     group_title: str = input("Write the group title (A, B, C, D):  ")
 
     return(
@@ -80,8 +81,9 @@ def select_6() -> list:
     )
 
 
-#Найти оценки студентов в отдельной группе по определенному предмету.
 def select_7() -> list:
+    print("Оцінки студентів у окремій группі з певного предмету: ")
+
     group_title: str = input("Write the group title (A, B, C, D):  ")
     discipline_name: str = input("Choose the discipline (Python, Java, Korean, Japanese, QA):  ")
 
@@ -98,8 +100,9 @@ def select_7() -> list:
     )
 
 
-#Найти средний балл, который ставит определенный преподаватель по своим предметам.
 def select_8() -> list:
+    print("Середній бал, який ставив певний викладач зі своїх предметів: ")
+
     pr_id: str = input("Write the professor's ID:  ")
 
     return(
@@ -112,8 +115,9 @@ def select_8() -> list:
     )
 
 
-#Найти список курсов, которые посещает определенный студент.
 def select_9() -> list:
+    print("Список курсів, які відвідував студент: ")
+
     st_id: str = input("Write the student's ID:  ")
 
     return(
@@ -128,8 +132,8 @@ def select_9() -> list:
     )
 
 
-#Список курсов, которые определенному студенту читает определенный преподаватель.
 def select_10() -> list:
+    print("Список курсів, які певний викладач читає певному студенту: ")
     st_id: str = input("Write the student's ID:  ")
     pr_id: str = input("Write the teacher's ID:  ")
 
@@ -146,5 +150,5 @@ def select_10() -> list:
     )
 
 
-if __name__ == '__main__':
-    print(f"{select_10()}")
+# if __name__ == '__main__':
+#     print(f"{select_10()}")
