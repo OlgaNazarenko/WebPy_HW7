@@ -57,6 +57,7 @@ def select_4() -> list:
 
 def select_5() -> list:
     print("Курси певного викладача: ")
+
     pr_id: str = input("Write the professor's ID:  ")
     return(
         session.query(Disciplines.discipline, Professor.last_name)
@@ -69,6 +70,7 @@ def select_5() -> list:
 
 def select_6() -> list:
     print("Список студентів певної групи: ")
+
     group_title: str = input("Write the group title (A, B, C, D):  ")
 
     return(
@@ -134,6 +136,7 @@ def select_9() -> list:
 
 def select_10() -> list:
     print("Список курсів, які певний викладач читає певному студенту: ")
+
     st_id: str = input("Write the student's ID:  ")
     pr_id: str = input("Write the teacher's ID:  ")
 

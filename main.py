@@ -47,6 +47,9 @@ def command_parser():
         if choose_query in func_list:
             func_list[choose_query]()
 
+        if choose_query >= str(10):
+            print('You can enter up to 10, try again: ')
+
         if choose_query == 'exit':
             print('Good bye)')
             break
