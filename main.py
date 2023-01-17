@@ -1,5 +1,6 @@
-import run_seed
+import sys
 
+import run_seed
 from my_select import select_1, select_2, select_3, select_4, select_5, select_6, \
     select_7, select_8, select_9, select_10
 
@@ -31,7 +32,7 @@ def command_parser():
     create_tables()
     assistance()
     while True:
-        choose_query = input('Enter command: ')
+        choose_query: str = input('Enter command: ')
 
         func_list: dict = {'1': select_1,
                            '2': select_2,
@@ -44,15 +45,15 @@ def command_parser():
                            '9': select_9,
                            '10': select_10
                            }
-        if choose_query in func_list:
-            func_list[choose_query]()
-
-        if choose_query >= str(10):
-            print('You can enter up to 10, try again: ')
 
         if choose_query == 'exit':
-            print('Good bye)')
-            break
+            sys.exit("Good bye")
+
+        if choose_query in func_list:
+            print(func_list[choose_query]())
+
+        elif choose_query >= str(10):
+            print('You can enter up to 10, try again: ')
 
 
 if __name__ == "__main__":

@@ -90,7 +90,7 @@ def select_7() -> list:
     discipline_name: str = input("Choose the discipline (Python, Java, Korean, Japanese, QA):  ")
 
     return(
-        session.query(Students.last_name, Students.group_id, Marks.mark, Disciplines.discipline)
+        session.query(Students.last_name, Marks.mark, Disciplines.discipline)
         .select_from(Students)
         .join(Marks)
         .join(Group)
