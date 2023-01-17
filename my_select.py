@@ -6,6 +6,7 @@ from database.models import Group, Professor, Students, Marks, Disciplines
 
 def select_1() -> list:
     print("Студенти з найвищим середнім балом: ")
+
     result = (
         session.query(Students.first_name, Students.last_name, func.round(func.avg(Marks.mark), 2).label('avg_grade'))\
         .select_from(Marks)
