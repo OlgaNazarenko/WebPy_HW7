@@ -4,7 +4,6 @@ from database.connect import session
 from database.models import Group, Professor, Students, Marks, Disciplines
 
 
-#найти 5 студентов с наибольшим средним баллом по всем предметам.
 def select_1() -> list:
     print("Студенти з найвищим середнім балом: ")
     result = (
