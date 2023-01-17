@@ -32,7 +32,7 @@ def command_parser():
     create_tables()
     assistance()
     while True:
-        choose_query: str = input("Enter command:  ")
+        choose_query: str = input("Enter command: ")
 
         func_list: dict = {'1': select_1,
                            '2': select_2,
