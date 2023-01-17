@@ -19,7 +19,7 @@ def select_1() -> list:
 
 
 def select_2() -> list:
-    print("Студенти з найвищим середнім балом з певного предмету:")
+    print("Студенти з найвищим середнім балом з певного предмету: ")
     return(
         session.query(Disciplines.discipline, Students.last_name, func.round(func.avg(Marks.mark), 2).label("avg_mark"))
         .select_from(Marks)
@@ -57,7 +57,7 @@ def select_4() -> list:
 def select_5() -> list:
     print("Курси певного викладача: ")
 
-    pr_id: str = input("Write the professor's ID:  ")
+    pr_id: str = input("Write the professor's ID: ")
     return(
         session.query(Disciplines.discipline, Professor.last_name)
         .select_from(Disciplines)
@@ -70,7 +70,7 @@ def select_5() -> list:
 def select_6() -> list:
     print("Список студентів певної групи: ")
 
-    group_title: str = input("Write the group title (A, B, C, D):  ")
+    group_title: str = input("Write the group title (A, B, C, D): ")
 
     return(
         session.query(Students.last_name, Group.title)
@@ -85,8 +85,8 @@ def select_6() -> list:
 def select_7() -> list:
     print("Оцінки студентів у окремій группі з певного предмету: ")
 
-    group_title: str = input("Write the group title (A, B, C, D):  ")
-    discipline_name: str = input("Choose the discipline (Python, Java, Korean, Japanese, QA):  ")
+    group_title: str = input("Write the group title (A, B, C, D): ")
+    discipline_name: str = input("Choose the discipline (Python, Java, Korean, Japanese, QA): ")
 
     return(
         session.query(Students.last_name, Marks.mark, Disciplines.discipline)
@@ -104,7 +104,7 @@ def select_7() -> list:
 def select_8() -> list:
     print("Середній бал, який ставив певний викладач зі своїх предметів: ")
 
-    pr_id: str = input("Write the professor's ID:  ")
+    pr_id: str = input("Write the professor's ID: ")
 
     return(
         session.query(Professor.last_name, func.round(func.avg(Marks.mark), 2).label("avg_mark"))
@@ -119,7 +119,7 @@ def select_8() -> list:
 def select_9() -> list:
     print("Список курсів, які відвідував студент: ")
 
-    st_id: str = input("Write the student's ID:  ")
+    st_id: str = input("Write the student's ID: ")
 
     return(
         session.query(Students.last_name, Disciplines.discipline)
@@ -136,8 +136,8 @@ def select_9() -> list:
 def select_10() -> list:
     print("Список курсів, які певний викладач читає певному студенту: ")
 
-    st_id: str = input("Write the student's ID:  ")
-    pr_id: str = input("Write the teacher's ID:  ")
+    st_id: str = input("Write the student's ID: ")
+    pr_id: str = input("Write the teacher's ID: ")
 
     return(
         session.query(Students.last_name, Professor.last_name, Disciplines.discipline)
